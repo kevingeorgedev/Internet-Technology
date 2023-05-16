@@ -1,0 +1,67 @@
+if __name__ == "__main__":
+    args = parse_args()
+    set_loss_params(args)
+    ss = init_socket(args['port'])
+    data_from_sender, sender_addr = lossy_recvfrom(
+            ss, MAX_CHUNK_SIZE)
+    msg = Msg.deserialize(data_from_sender)
+    input1 = msg.msg
+
+    #input1 = ss.recv(200).split(" | ")[3]
+    print(input1)
+    if(len(input1) > 3 and input1[0:3] == "UN@"):
+        f = open("UN.txt", "r")
+        if(input1 in f.read()):
+            print("THIS")
+            print("[R] Username found: " + input1)
+            output = receiver(ss, args['ooo_enabled'])
+            put_filedata(args['outfile'], output)
+            print("[R] Receiver finished downloading file data.")
+        else:
+            f = open("UN.txt", "w")
+            f.write(input1 + "\n")
+            print("[R] Username not found")
+    else:
+        print("[R] Username not found")
+    ss.close()
+
+if __name__ == "__main__":
+    args = parse_args()
+    set_loss_params(args)
+    ss = init_socket(args['port'])
+    output = receiver(ss, args['ooo_enabled'])
+    ss.close()
+    put_filedata(args['outfile'], output)
+    print("[R] Receiver finished downloading file data.")
+    
+if __name__ == "__main__":
+    args = parse_args()
+    set_loss_params(args)
+    ss = init_socket(args['port'])
+    #x, y = lossy_recvfrom(ss, MAX_CHUNK_SIZE)
+    #msg2 = Msg.deserialize(x)
+    #lossy_sendto(ss, msg2, y)
+    data_from_sender, sender_addr = lossy_recvfrom(
+            ss, MAX_CHUNK_SIZE)
+    
+    msg = Msg.deserialize(data_from_sender)
+    input1 = msg.msg
+    input1 = input1.split(" ", 1)[0]
+
+    input1 = ss.recv(200).split(" | ")[3]
+    print(input1)
+    if(len(input1) > 3 and input1[0:3] == "UN@"):
+        f = open("UN.txt", "r")
+        if(input1 in f.read()):
+            print("THIS")
+            print("[R] Username found: " + input1)
+            output = receiver(ss, args['ooo_enabled'])
+            put_filedata(args['outfile'], output)
+            print("[R] Receiver finished downloading file data.")
+        else:
+            f = open("UN.txt", "w")
+            f.write(input1 + "\n")
+            print("[R] Username not found")
+    else:
+        print("[R] Username not found")
+    ss.close()

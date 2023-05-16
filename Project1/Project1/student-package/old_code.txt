@@ -1,0 +1,68 @@
+#Step 4)
+#Reverse:
+#csockid.send(msg[::-1].encode('utf-8'))
+
+#Upper:
+csockid.send(msg.upper().encode('utf-8'))
+
+#Open file to read
+#file = open("in-proj.txt", "r")
+
+#Step 5)
+#Reverse:
+#csockid.send(reverseFromString(file).encode('utf-8'))
+
+#Upper:
+msg = file.read()
+csockid.send(msg.upper().encode('utf-8'))
+
+def reverseFromString(file):
+    data = file.readlines()
+    msg = ""
+    for i in range (len(data)):
+        msg += data[i][::-1].strip()
+        if i != len(data) - 1:
+            msg += "\n"
+    return msg
+
+while True:
+        try:
+            tmp = csockid.recv(10)
+            msg += tmp
+        except socket.error as e:
+            break
+
+tmp = csockid.recv(10)
+        print(len(tmp))
+        if not tmp:
+            break
+        msg += tmp
+
+if reverse:
+        while True:
+            try:
+                tmp = csockid.recv(10)
+                msg += tmp
+            except socket.timeout:
+                break
+        
+    if upper:
+        if len(msg) > 0:
+            msg = msg.upper()
+        else:
+            while True:
+                try:
+                    tmp = csockid.recv(10)
+                    msg += tmp
+                except socket.timeout:
+                    break
+            msg = msg.upper()
+
+
+    #Get message from client
+    #msg = csockid.recv(10).split('\n')
+
+    csockid.send(reverseFromString(msg.split('\n')).encode('utf-8'))
+
+
+    #cs.send(data.encode())

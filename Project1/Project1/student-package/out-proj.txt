@@ -1,0 +1,6 @@
+[S]: Server socket created
+[S]: Server host name is ilab1.cs.rutgers.edu
+[S]: Server IP address is 128.6.4.101
+[S]: Got a connection request from a client at ('128.6.4.101', 58708)
+[C]: Client socket created
+[C]: Data received from server: Welcome to CS 352!
